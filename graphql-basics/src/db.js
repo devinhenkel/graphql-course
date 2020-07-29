@@ -113,4 +113,10 @@ var risks = [
     }
 ]
 
-export { users, projects, risks }
+const db = {
+    users,
+    projects,
+    risks
+}
+
+export { db as default }

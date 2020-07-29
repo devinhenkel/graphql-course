@@ -1,0 +1,98 @@
+type Query {
+    me: User!
+    users(query: String): [User!]!
+    project: Project!
+    projects(query: String): [Project!]!
+    risks: [Risk!]!
+}
+
+type Mutation {
+    createUser(data: CreateUserInput!): User!
+    updateUser(id: ID!, data: UpdateUserInput!): User!
+    deleteUser(id: ID!): User!
+    createProject(data: CreateProjectInput!): Project!
+    updateProject(id: ID!, data: UpdateProjectInput): Project!
+    deleteProject(id: ID!): Project!
+    createRisk(data: CreateRiskInput!): Risk!
+    updateRisk(id: ID!, data: UpdateRiskInput): Risk!
+    deleteRisk(id: ID!): Risk!
+}
+
+type User {
+    id: ID!
+    username: String!
+    firstname: String
+    lastname: String
+    email: String!
+    age: Int
+    projects(active: Boolean): [Project]
+    risks: [Risk]
+}
+
+type Project {
+    id: ID!
+    name: String!
+    description: String
+    owner: User!
+    active: Boolean!
+    risks: [Risk]!
+}
+
+type Risk {
+    id: ID!
+    title: String!
+    description: String
+    author: User!
+    project: Project!
+    branch: Risk
+}
+
+type Character {
+    name: String!
+    height: String
+    gender: String
+    secretIdentity: String
+}
+
+input CreateUserInput {
+    username: String!
+    email: String!
+}
+
+input UpdateUserInput {
+    username: String
+    email: String
+    firstname: String
+    lastname: String
+    age: Int
+}
+
+input CreateProjectInput {
+    name: String!
+    description: String = ""
+    active: Boolean = false
+    owner: ID!
+}
+
+input UpdateProjectInput {
+    name: String
+    description: String
+    owner: ID
+    active: Boolean
+}
+
+input CreateRiskInput {
+    title: String!
+    description: String
+    author: ID!
+    project: ID!
+    branch: ID
+}
+
+input UpdateRiskInput {
+    title: String
+    description: String
+    author: ID
+    project: ID
+    branch: ID
+}
