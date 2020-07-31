@@ -10,7 +10,14 @@ const Mutation = {
         return newUser
     
     },
-    updateUser(parent, args, {db}, info) {
+    updateUser(parent, args, {db}, info) {  
+        if (args.data.email) {
+            const emailTaken = db.users.some((user) => args.data.email === user.email)
+            if (emailTaken) {
+                throw new Error('Email is already in use')
+            }
+        }
+
         const newUser = {
             ...db.users.find(user => user.id === args.id),
             ...args.data
@@ -67,12 +74,13 @@ const Mutation = {
 
         return deletedProject[0]
     },
-    createRisk(parent, args, {db}, info) {
+    createRisk(parent, args, {db, pubsub}, info) {
         const newRisk = {
             id: uuidv4(),
             ...args.data
         }
         db.risks.push(newRisk)
+        pubsub.publish(`risk-${newRisk.project}`, { risk: newRisk})
         return newRisk
     
     },

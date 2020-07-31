@@ -18,6 +18,11 @@ type Mutation {
     deleteRisk(id: ID!): Risk!
 }
 
+type Subscription {
+    count: Int!
+    risk(projectId:ID!): Risk!
+}
+
 type User {
     id: ID!
     username: String!
