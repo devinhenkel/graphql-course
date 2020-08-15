@@ -16,6 +16,7 @@ type Mutation {
     createRisk(data: CreateRiskInput!): Risk!
     updateRisk(id: ID!, data: UpdateRiskInput): Risk!
     deleteRisk(id: ID!): Risk!
+    magicBox(action: String): Status!
 }
 
 type Subscription {
@@ -57,6 +58,11 @@ type Character {
     height: String
     gender: String
     secretIdentity: String
+}
+
+type Status {
+    status: String!
+    message: String
 }
 
 input CreateUserInput {

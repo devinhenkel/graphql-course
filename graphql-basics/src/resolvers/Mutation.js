@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
+const axios = require('axios');
 
 const Mutation = {
     createUser(parent, args, {db}, info) {
@@ -101,6 +102,29 @@ const Mutation = {
         const deletedRisk = db.risks.splice(riskIndex, 1)
 
         return deletedRisk[0]
+    },
+    async magicBox(parent, args, {db}, info) {
+        const boxUrl = "http://pimotor.localdomain:5000/wand/"
+        let quote = ``
+        await axios.get(boxUrl)
+            .then(function(res){
+                console.log(res)
+                quote = res
+            })
+            .catch(function(err){
+                quote = 'Error!'
+                if (err.response){
+                console.log("Problem with response", err.response.status);
+                quote = err.response.status
+                } else if (err.request) {
+                console.log("Problem with request");
+                quote = "Problem with request"
+                } else {
+                console.log("Error: ", err.message);
+                quote = err.message
+                }
+            })
+            return quote
     }
 }
 
