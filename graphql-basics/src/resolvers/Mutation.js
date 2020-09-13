@@ -125,6 +125,15 @@ const Mutation = {
                 }
             })
             return quote
+    },
+    async torchLight(parent, args, context, info) {
+        const lightUrl = "http://192.168.1.125/LED="+args.state.toUpperCase();
+        let result = ``;
+        await axios.get(lightUrl)
+            .then(function(res){
+                console.log(res)
+            })
+        return {status: result}
     }
 }
 

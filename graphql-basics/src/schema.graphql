@@ -17,6 +17,7 @@ type Mutation {
     updateRisk(id: ID!, data: UpdateRiskInput): Risk!
     deleteRisk(id: ID!): Risk!
     magicBox(action: String): Status!
+    torchLight(state: String): Status!
 }
 
 type Subscription {
