@@ -38,10 +38,10 @@ const typeDefs = `
 const resolvers = {
     Query: {
         add(parent, {numbers}, context, info) {
-            return numbers.reduce((accumulator, currentValue) => {
-                return accumulator + currentValue
-            })
         },
+                return numbers.reduce((accumulator, currentValue) => {
+                    return accumulator + currentValue
+                })
         me() {
             return {
                 id: `123`,
