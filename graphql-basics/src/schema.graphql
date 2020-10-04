@@ -4,6 +4,7 @@ type Query {
     project: Project!
     projects(query: String): [Project!]!
     risks: [Risk!]!
+    ronswanson: String!
 }
 
 type Mutation {

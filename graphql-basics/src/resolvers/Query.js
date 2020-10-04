@@ -1,3 +1,6 @@
+
+const axios = require('axios');
+
 const Query = {
     me() {
         return {
@@ -36,6 +39,26 @@ const Query = {
                 project.description.toLowerCase().includes(args.query.toLowerCase())
         })
         
+    },
+    async ronswanson() {
+        const rsurl = 'https://ron-swanson-quotes.herokuapp.com/v2/quotes'
+        var quote = ''
+        await axios.get(rsurl)
+        .then(function(res){
+            console.log(res.data[0])
+            quote = res.data[0]
+        })
+        .catch(function(err){
+            quote = 'Error!'
+            if (err.response){
+            console.log("Problem with response", err.response.status);
+            } else if (err.request) {
+            console.log("Problem with request");
+            } else {
+            console.log("Error: ", err.message);
+            }
+        })
+        return quote
     },
     risks(parent, args, {db}, info) {
         return db.risks
